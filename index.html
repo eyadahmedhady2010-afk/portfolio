@@ -1,0 +1,552 @@
+I'll create a modern, responsive personal portfolio website for you. Here's the complete code:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1e1e2e;
+            --border-color: #27272a;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        [data-theme="light"] {
+            --text-primary: #1e1e2e;
+            --text-secondary: #52525b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border-color: #e2e8f0;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Main Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Home Section */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 8rem;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        /* About Section */
+        #about {
+            background: var(--bg-secondary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Projects Section */
+        #projects {
+            background: var(--bg-primary);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .project-card h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .contact-form button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .animate:nth-child(1) { animation-delay: 0.1s; }
+        .animate:nth-child(2) { animation-delay: 0.2s; }
+        .animate:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            #home {
+                padding-top: 6rem;
+                text-align: center;
+            }
+        }
+
+        /* Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <header>
+        <nav>
+            <div class="logo">YourName</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="mobile-menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home">
+            <div class="hero-content animate">
+                <h1>Hi, I'm <span style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Your Name</span></h1>
+                <p>I'm a passionate developer creating beautiful, functional experiences. I love turning ideas into reality through clean code and modern design.</p>
+                <a href="#contact" class="cta-button">Get In Touch</a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="animate">
+            <div class="about-content">
+                <div class="about-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">About Me</h2>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem;">
+                        I'm a full-stack developer with 3+ years of experience building web applications. 
+                        I specialize in modern JavaScript frameworks, responsive design, and creating seamless user experiences.
+                    </p>
+                    <div style="margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1rem;">
+                        <span style="background: var(--bg-primary); padding: 0.5rem 1rem; border-radius: 50px; border: 1px solid var(--border-color); font-size: 0.9rem;">React</span>
+                        <span style="background: var(--bg-primary); padding: 0.5rem 1rem; border-radius: 50px; border: 1px solid var(--border-color); font-size: 0.9rem;">Node.js</span>
+                        <span style="background: var(--bg-primary); padding: 0.5rem 1rem; border-radius: 50px; border: 1px solid var(--border-color); font-size: 0.9rem;">Tailwind</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">Projects</h2>
+            <p style="text-align: center; color: var(--text-secondary); max-width: 600px; margin: 0 auto 3rem;">
+                Here are some of my recent projects that showcase my skills and experience.
+            </p>
+            <div class="projects-grid">
+                <div class="project-card animate">
+                    <h3>E-Commerce Platform</h3>
+                    <p>A full-stack e-commerce solution built with React, Node.js, and Stripe integration. Features include real-time inventory, user authentication, and responsive design.</p>
+                    <div class="project-links">
+                        <a href="#" target="_blank"><i class="fab fa-github"></i> Code</a>
+                        <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+                    </div>
+                </div>
+                <div class="project-card animate">
+                    <h3>Task Management App</h3>
+                    <p>A collaborative task management application with drag-and-drop functionality, real-time updates, and team collaboration features.</p>
+                    <div class="project-links">
+                        <a href="#" target="_blank"><i class="fab fa-github"></i> Code</a>
+                        <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+                    </div>
+                </div>
+                <div class="project-card animate">
+                    <h3>Portfolio Dashboard</h3>
+                    <p>An analytics dashboard for tracking portfolio performance with interactive charts, real-time data, and customizable widgets.</p>
+                    <div class="project-links">
+                        <a href="#" target="_blank"><i class="fab fa-github"></i> Code</a>
+                        <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="contact-content">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Let's Work Together</h2>
+                <p style="color: var(--text-secondary); font-size: 1.1rem;">
+                    Have a project in mind? I'd love to hear from you!
+                </p>
+            </div>
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.querySelector('.theme-toggle i');
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        themeToggle.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        });
+
+        document.querySelectorAll('.animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Contact form handler
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            event.target.reset();
+        }
+
+        // Mobile menu (basic implementation)
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+</body
